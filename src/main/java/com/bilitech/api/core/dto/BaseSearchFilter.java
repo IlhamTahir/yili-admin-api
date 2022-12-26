@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data
 public class BaseSearchFilter {
-    @Min(value = 1, message = "page最小值为1")
+    @Min(value = 1, message = "page最小值为0")
     private Integer page = 1;
 
     @Min(value = 0, message = "page最小值为1")

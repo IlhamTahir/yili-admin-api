@@ -1,10 +1,12 @@
 package com.bilitech.api.core.dto;
 
 import com.bilitech.api.core.enums.Gender;
+import com.bilitech.api.core.vo.RoleVo;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
 public class UserCreateRequest {
@@ -18,6 +20,8 @@ public class UserCreateRequest {
     private String password;
 
     private String nickname;
+
+    private List<String> roles;
 
     private Gender gender;
 }

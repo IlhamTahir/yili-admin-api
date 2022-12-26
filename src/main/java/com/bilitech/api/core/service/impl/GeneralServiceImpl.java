@@ -4,11 +4,12 @@ import com.bilitech.api.core.dto.BaseDto;
 import com.bilitech.api.core.entity.BaseEntity;
 import com.bilitech.api.core.exception.BizException;
 import com.bilitech.api.core.service.GeneralService;
+import com.bilitech.api.core.vo.BaseVo;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-public abstract class GeneralServiceImpl<Entity extends BaseEntity, Dto extends BaseDto> extends BaseService implements GeneralService<Entity, Dto> {
+public abstract class GeneralServiceImpl<Entity extends BaseEntity, Dto extends BaseDto, Vo extends BaseVo> extends BaseService implements GeneralService<Entity, Dto, Vo> {
 
     @Override
     public Dto create(Dto dto) {

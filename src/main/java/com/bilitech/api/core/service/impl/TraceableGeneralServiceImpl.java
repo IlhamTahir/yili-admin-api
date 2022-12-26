@@ -2,8 +2,9 @@ package com.bilitech.api.core.service.impl;
 
 import com.bilitech.api.core.dto.BaseDto;
 import com.bilitech.api.core.entity.TraceableBaseEntity;
+import com.bilitech.api.core.vo.BaseVo;
 
-public abstract class TraceableGeneralServiceImpl<Entity extends TraceableBaseEntity, Dto extends BaseDto> extends GeneralServiceImpl<Entity, Dto> {
+public abstract class TraceableGeneralServiceImpl<Entity extends TraceableBaseEntity, Dto extends BaseDto, Vo extends BaseVo> extends GeneralServiceImpl<Entity, Dto, Vo> {
     @Override
     public Dto create(Dto dto) {
         Entity entity = getMapper().toEntity(dto);

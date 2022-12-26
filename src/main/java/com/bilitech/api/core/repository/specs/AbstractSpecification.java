@@ -9,7 +9,7 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractSpecification<T> implements Specification<T> {
+public  class AbstractSpecification<T> implements Specification<T> {
     private final List<SearchCriteria> list;
 
     public AbstractSpecification() {

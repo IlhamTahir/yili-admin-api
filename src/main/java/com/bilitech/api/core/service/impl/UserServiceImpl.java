@@ -4,20 +4,24 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.bilitech.api.core.config.SecurityConfig;
 import com.bilitech.api.core.dto.*;
+import com.bilitech.api.core.entity.Role;
 import com.bilitech.api.core.entity.User;
 import com.bilitech.api.core.exception.BizException;
 import com.bilitech.api.core.exception.ExceptionType;
 import com.bilitech.api.core.mapper.UserMapper;
+import com.bilitech.api.core.repository.RoleRepository;
 import com.bilitech.api.core.repository.UserRepository;
 import com.bilitech.api.core.repository.specs.SearchCriteria;
 import com.bilitech.api.core.repository.specs.SearchOperation;
 import com.bilitech.api.core.repository.specs.UserSpecification;
+import com.bilitech.api.core.service.RoleService;
 import com.bilitech.api.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
@@ -32,6 +36,9 @@ public class UserServiceImpl extends BaseService implements UserService {
     PasswordEncoder passwordEncoder;
 
 
+    RoleService roleService;
+
+
     @Override
     public UserDto create(UserCreateRequest userCreateRequest) {
         checkUserName(userCreateRequest.getUsername());
@@ -40,6 +47,7 @@ public class UserServiceImpl extends BaseService implements UserService {
         return mapper.toDto(repository.save(user));
     }
 
+
     @Override
     public UserDto get(String id) {
         return mapper.toDto(getById(id));
@@ -47,7 +55,9 @@ public class UserServiceImpl extends BaseService implements UserService {
 
     @Override
     public UserDto update(String id, UserUpdateRequest userUpdateRequest) {
-        return mapper.toDto(repository.save(mapper.updateEntity(getById(id), userUpdateRequest)));
+        User user = mapper.updateEntity(getById(id), userUpdateRequest);
+
+        return mapper.toDto(repository.save(user));
     }
 
     private User getById(String id) {
@@ -66,9 +76,9 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Override
     public Page<UserDto> search(UserSearchFilter userSearchFilter) {
         UserSpecification specs = new UserSpecification();
-        // ToDo: 需要重构
-        if (!Objects.equals(userSearchFilter.getNickname(), "")) {
-            specs.add(new SearchCriteria("nickname", userSearchFilter.getNickname(), SearchOperation.MATCH));
+//        // ToDo: 需要重构
+        if (!Objects.equals(userSearchFilter.getUsername(), "")) {
+            specs.add(new SearchCriteria("username", userSearchFilter.getUsername(), SearchOperation.MATCH));
         }
         return repository.findAll(specs, userSearchFilter.toPageable()).map(mapper::toDto);
     }
@@ -125,5 +135,10 @@ public class UserServiceImpl extends BaseService implements UserService {
     @Autowired
     private void setRepository(UserRepository repository) {
         this.repository = repository;
+    }
+
+    @Autowired
+    public void setRoleService(RoleService roleService) {
+        this.roleService = roleService;
     }
 }

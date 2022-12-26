@@ -44,7 +44,6 @@ CREATE TABLE `permission` (
     `id` VARCHAR(32) NOT NULL
         PRIMARY KEY COMMENT '权限ID',
     `name` VARCHAR(128) NOT NULL COMMENT '权限名称',
-    `label` VARCHAR(128) NOT NULL COMMENT '权限标识',
     `created_time` DATETIME(6) NOT NULL COMMENT '创建时间',
     `updated_time` DATETIME(6) NOT NULL COMMENT '创建时间',
     CONSTRAINT `uk_permission_name`

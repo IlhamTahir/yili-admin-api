@@ -28,6 +28,7 @@ public class User extends BaseEntity implements UserDetails {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
+
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -43,12 +44,31 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
+        return getGrantedAuthorities(getPermissions(roles));
+    }
+
+    private List<String> getPermissions(Collection<Role> roles) {
+
+        List<String> permissions = new ArrayList<>();
+        List<Permission> collection = new ArrayList<>();
         for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
+            permissions.add(role.getName());
+            collection.addAll(role.getPermissions());
+        }
+        for (Permission item : collection) {
+            permissions.add(item.getName());
+        }
+        return permissions;
+    }
+
+    private List<GrantedAuthority> getGrantedAuthorities(List<String> privileges) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for (String privilege : privileges) {
+            authorities.add(new SimpleGrantedAuthority(privilege));
         }
         return authorities;
     }
+
 
     @Override
     public boolean isAccountNonExpired() {

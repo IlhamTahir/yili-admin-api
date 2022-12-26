@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
 public class UserUpdateRequest {
@@ -13,6 +14,8 @@ public class UserUpdateRequest {
     private String username;
     
     private String nickname;
+
+    private List<String> roles;
 
     private String gender;
 }

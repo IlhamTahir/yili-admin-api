@@ -21,4 +21,6 @@ public class UserVo extends BaseVo {
     private Boolean enabled;
     
     private List<RoleVo> roles;
+
+    private List<String> permissions;
 }
