@@ -48,7 +48,7 @@ public class RoleServiceImpl extends BaseService implements RoleService {
 
     private Role getById(String id) {
         Optional<Role> role = repository.findById(id);
-        if (role.isEmpty()) {
+        if (!role.isPresent()) {
             throw new BizException(ExceptionType.USER_NOT_FOUND);
         }
         return role.get();
