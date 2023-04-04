@@ -7,8 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class UserDto {
-    private String id;
+public class UserDto extends BaseDto{
 
     private String username;
 

@@ -16,7 +16,6 @@ class UserServiceTest {
 
     @Test
     void create() {
-
         UserCreateRequest userCreateRequest = new UserCreateRequest();
         userCreateRequest.setUsername("testUser");
         userCreateRequest.setPassword("password");

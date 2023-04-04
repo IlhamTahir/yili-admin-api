@@ -16,13 +16,9 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {RoleMapper.class})
 @DecoratedWith(UserMapperDecorator.class)
-public interface UserMapper {
-  UserDto toDto(User user);
-
-  UserVo toVo(UserDto userDto);
+public interface UserMapper extends MapperInterface<User, UserDto, UserVo> {
 
   User createEntity(UserCreateRequest userCreateRequest);
 
   User updateEntity(@MappingTarget User user, UserUpdateRequest userUpdateRequest);
-
 }

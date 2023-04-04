@@ -1,6 +1,8 @@
 package com.bilitech.api.core.mapper;
 
+import com.bilitech.api.core.dto.UserCreateRequest;
 import com.bilitech.api.core.dto.UserDto;
+import com.bilitech.api.core.entity.User;
 import com.bilitech.api.core.vo.RoleVo;
 import com.bilitech.api.core.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,6 @@ public abstract class UserMapperDecorator implements UserMapper{
         buildPermissions(userVo);
         return userVo;
     }
-
 
     private static void buildPermissions(UserVo userVo) {
         List<String> permissions = new ArrayList<>();
